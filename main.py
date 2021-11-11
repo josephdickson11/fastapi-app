@@ -6,9 +6,12 @@ from core.config import settings
 from apis.generalpages.route_homepage import general_pages_router
 from db.session import engine
 from db.base import Base 
+from apis.base import api_router
 
 
 
+def include_router(app):
+    app.include_router(api_router)
 
 def include_router(app):
     app.include_router(general_pages_router)
@@ -31,4 +34,4 @@ app = start_application()
 
 #@app.get("/")
 #def hello_api():
-#    return {"msg": "Hello API"}
+#    return {"msg": "Hello API"}from sqlalchemy.ext.declarative import api
