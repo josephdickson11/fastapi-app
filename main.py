@@ -13,8 +13,6 @@ from apis.base import api_router
 def include_router(app):
     app.include_router(api_router)
 
-def include_router(app):
-    app.include_router(general_pages_router)
 
 
 def configure_static(app): 
