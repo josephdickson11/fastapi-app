@@ -1,12 +1,16 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from sqlalchemy.orm import Session
+from sqlalchemy.orm import session
 from starlette.status import HTTP_404_NOT_FOUND
 
 from db.models.jobs import Job
 from db.repository.jobs import create_new_job
+from db.repository.jobs import list_jobs
 from db.repository.jobs import retrieve_job
 from db.session import get_db
 from schemas.jobs import JobCreate
@@ -33,3 +37,9 @@ def read_job(id: int, db: Session = Depends(get_db)):
             )
         )
     return job
+
+
+@router.get("/all", response_model=List[ShowJob])
+def read_jobs(db: session = Depends(get_db)):
+    jobs = list_jobs(db=db)
+    return jobs
