@@ -1,7 +1,9 @@
-from sqlalchemy import create_engine, engine
+from typing import Generator
+
+from sqlalchemy import create_engine
+from sqlalchemy import engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import Generator
 
 from core.config import settings
 
@@ -17,5 +19,5 @@ def get_db() -> Generator:
     try:
         db = SessionLocal()
         yield db
-    finally: 
+    finally:
         db.close()

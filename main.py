@@ -1,25 +1,25 @@
-#main.py
-
+# main.py
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from core.config import settings
-from apis.generalpages.route_homepage import general_pages_router
-from db.session import engine
-from db.base import Base 
-from apis.base import api_router
 
+from apis.base import api_router
+from apis.generalpages.route_homepage import general_pages_router
+from core.config import settings
+from db.base import Base
+from db.session import engine
 
 
 def include_router(app):
     app.include_router(api_router)
 
 
-
-def configure_static(app): 
+def configure_static(app):
     app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 def create_tables():
     Base.metadata.create_all(bind=engine)
+
 
 def start_application():
     app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
@@ -28,8 +28,9 @@ def start_application():
     create_tables()
     return app
 
+
 app = start_application()
 
-#@app.get("/")
-#def hello_api():
+# @app.get("/")
+# def hello_api():
 #    return {"msg": "Hello API"}from sqlalchemy.ext.declarative import api
